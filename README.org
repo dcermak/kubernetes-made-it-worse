@@ -1,0 +1,19 @@
+* We put it on Kubernetes and made it worse
+
+This repository contains the slides for the presentation "We put it on Kubernetes and made it worse" held at KCD Budapest.
+
+You can find the rendered slides here: [[https://dcermak.github.io/kubernetes-made-it-worse/kubernetes-made-it-worse.html][dcermak.github.io/kubernetes-made-it-worse]].
+
+
+** Building the slides
+
+You can create the html slides yourself from within Emacs by opening the
+[[./kubernetes-made-it-worse.org]] file, launching =org-mode= and executing ~(require
+'org-re-reveal)~ (you might have to install =org-re-reveal= beforehand). Then
+export the org file to reveal.js (this is by default bound to the keychord =C-c
+C-e v v=).
+
+If you are not a Emacs user, then just install Emacs and execute:
+#+begin_src bash
+emacs kubernetes-made-it-worse.org -Q --batch -l export-init.el -f org-re-reveal-export-to-html --kill
+#+end_src

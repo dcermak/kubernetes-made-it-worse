@@ -1,0 +1,12 @@
+{
+  "name": "kubernetes-made-it-worse",
+  "version": "0.0.1",
+  "description": "Slides for the presentation We put it on Kubernetes and made it worse",
+  "author": "Dan Čermák <dcermak@suse.com>",
+  "license": "CC-BY-SA-4.0",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
+    "material-symbols": "^0.48.0",
+    "reveal.js": "^6.0.2"
+  }
+}

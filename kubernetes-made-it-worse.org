@@ -1,0 +1,61 @@
+# -*- org-confirm-babel-evaluate: nil; -*-
+#+AUTHOR: Dan Čermák
+#+DATE: October 30, 2026
+#+EMAIL: dcermak@suse.com
+#+TITLE: We put it on Kubernetes and made it worse
+#+SUBTITLE: Lessons learned from a failed microservice rewrite
+
+#+REVEAL_ROOT: ./node_modules/reveal.js/
+#+REVEAL_THEME: simple
+#+REVEAL_PLUGINS: (highlight notes)
+#+OPTIONS: toc:nil
+#+REVEAL_DEFAULT_FRAG_STYLE: appear
+#+REVEAL_EXTRA_OPTIONS: hash: true
+#+REVEAL_TRANS: none
+#+OPTIONS: num:nil toc:nil center:nil reveal_title_slide:nil
+#+OPTIONS: reveal_slide_number:nil reveal_fragmentinurl:t
+#+REVEAL_EXTRA_CSS: ./node_modules/@fortawesome/fontawesome-free/css/all.min.css
+#+REVEAL_EXTRA_CSS: ./node_modules/material-symbols/outlined.css
+#+REVEAL_EXTRA_CSS: ./custom-style.css
+
+#+REVEAL_TITLE_SLIDE: <h2 class="title">%t</h2>
+#+REVEAL_TITLE_SLIDE: <p class="subtitle" style="color: Gray;">%s</p>
+#+REVEAL_TITLE_SLIDE: <p class="author">%a</p>
+#+REVEAL_TITLE_SLIDE: <div style="float:left"><a href="https://kcdbudapest.hu/" target="_blank"><img src="./media/kcd-logo.svg" height="50px"/></a></div>
+#+REVEAL_TITLE_SLIDE: <div style="float:right;font-size:35px;"><p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#"><a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+#+REVEAL_TITLE_SLIDE: CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
+
+* Follow Along
+
+@@html:<img src="./media/qr.svg" height="300px"/>@@
+
+@@html:<i class="fa-solid fa-person-chalkboard"></i>@@ [[https://dcermak.github.io/kubernetes-made-it-worse/kubernetes-made-it-worse.html][=dcermak.github.io/kubernetes-made-it-worse=]]
+
+
+* ~who -u~
+
+Dan Čermák
+
+@@html: <div style="float:center">@@
+@@html: <table class="who-table">@@
+@@html: <tr><td><i class="fab fa-suse"></i></td><td> Open Source Advocate @SUSE</td></tr>@@
+@@html: <tr><td><i class="fab fa-opensuse"></i></td><td> Package maintainer</td></tr>@@
+@@html: <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>@@
+@@html: <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Home Automation, Testing and Documentation</td></tr>@@
+@@html: <tr></tr>@@
+@@html: <tr></tr>@@
+@@html: <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-bluesky"></i></td><td> <a href="https://bsky.app/profile/defolos.bsky.social">@defolos.bsky.social</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Dan on LinkedIn</a></td></tr>@@
+@@html: </table>@@
+@@html: </div>@@
+
+
+
+* Questions?
+
+@@html:<img src="./media/qr.svg" height="300px"/>@@
+
+@@html:<i class="fa-solid fa-person-chalkboard"></i>@@ [[https://dcermak.github.io/kubernetes-made-it-worse/kubernetes-made-it-worse.html][=dcermak.github.io/kubernetes-made-it-worse=]]
