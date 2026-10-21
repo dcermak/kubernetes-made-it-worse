@@ -54,7 +54,7 @@ Dan Čermák
 
 * Stay a while and listen
 
-@@html:<img src="./media/deckard-cain.png"/>@@
+@@html:<img src="./media/deckard-cain.jpg"/>@@
 
 ** The =cve-patch-checker=
 
