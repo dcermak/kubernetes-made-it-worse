@@ -166,6 +166,14 @@ On paper
 @@html:<img src="./media/storage-oops.svg"/>@@
 
 
+* Why are there 10k messages in the Queue?
+
+#+begin_notes
+- on one horrific day, the queue exploded
+#+end_notes
+
+@@html:<img src="./media/queued-jobs.svg"/>@@
+
 
 * Questions?
 
