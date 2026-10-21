@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Generated on 2026-10-21 Wed 15:57 -->
+<meta charset="utf-8"/>
+<title>We put it on Kubernetes and made it worse</title>
+<meta name="author" content="Dan Čermák"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/theme/simple.css" id="theme"/>
+
+<link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"/>
+
+<link rel="stylesheet" href="./node_modules/material-symbols/outlined.css"/>
+
+<link rel="stylesheet" href="./custom-style.css"/>
+<link rel="stylesheet" href="./node_modules/reveal.js/dist/plugin/highlight/zenburn.css"/>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h2 class="title">We put it on Kubernetes and made it worse</h2>
+<p class="subtitle" style="color: Gray;">Lessons learned from a failed microservice rewrite</p>
+<p class="author">Dan Čermák</p>
+<div style="float:left"><a href="https://kcdbudapest.hu/" target="_blank"><img src="./media/kcd-logo.svg" height="50px"/></a></div>
+<div style="float:right;font-size:35px;"><p xmlns:dct="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#"><a href="https://creativecommons.org/licenses/by/4.0" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">
+CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
+</section>
+<section>
+<section id="slide-org5d1a46b">
+<h2 id="org5d1a46b">Follow Along</h2>
+<p>
+<img src="./media/qr.svg" height="300px"/>
+</p>
+
+<p>
+<i class="fa-solid fa-person-chalkboard"></i> <a href="https://dcermak.github.io/kubernetes-made-it-worse/kubernetes-made-it-worse.html"><code>dcermak.github.io/kubernetes-made-it-worse</code></a>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org8f8b25e">
+<h2 id="org8f8b25e"><code>who -u</code></h2>
+<p>
+Dan Čermák
+</p>
+
+<p>
+ <div style="float:center">
+ <table class="who-table">
+ <tr><td><i class="fab fa-suse"></i></td><td> Open Source Advocate @SUSE</td></tr>
+ <tr><td><i class="fab fa-opensuse"></i></td><td> Package maintainer</td></tr>
+ <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>
+ <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Home Automation, Testing and Documentation</td></tr>
+ <tr></tr>
+ <tr></tr>
+ <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>
+ <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a></td></tr>
+ <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>
+ <tr><td><i class="fab fa-bluesky"></i></td><td> <a href="https://bsky.app/profile/defolos.bsky.social">@defolos.bsky.social</a></td></tr>
+ <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Dan on LinkedIn</a></td></tr>
+ </table>
+ </div>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org7162d74">
+<h2 id="org7162d74">Stay a while and listen</h2>
+<p>
+<img src="./media/deckard-cain.png"/>
+</p>
+</section>
+<section id="slide-orgc63345e">
+<h3 id="orgc63345e">The <code>cve-patch-checker</code></h3>
+<aside class="notes">
+<ul>
+<li>local application for checking security related submissions</li>
+
+</ul>
+<p>
+steps:
+</p>
+<ul>
+<li>ABI check resulting binary against code stream</li>
+<li>lint the submission</li>
+<li>rebuild with &amp; without patch &rArr; compare binaries (i.e. did the patch actually change a thing?)</li>
+<li>code stream check: check if submission needs to be done against other code streams too, apply it and restart checks there too</li>
+
+</ul>
+
+</aside>
+
+<p>
+<img src="./media/cve-patch-checker.svg"/>
+</p>
+</section>
+<section id="slide-org0c520d2">
+<h3 id="org0c520d2">But it had problems</h3>
+<aside class="notes">
+<ul>
+<li>rebuilds resource intensive</li>
+<li>bad connection &rArr; checks take ages/stall</li>
+
+</ul>
+
+</aside>
+
+<p>
+<img src="./media/laptop-on-fire.png"/>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org3667f60">
+<h2 id="org3667f60">What if we made it scalable?</h2>
+<aside class="notes">
+<ul>
+<li>internal k8s cluster became available, would be hosted, can run plethora of workloads there</li>
+<li>checks could run there, geographically close to the "main" repos</li>
+<li>offload the expensive work to cluster, scale up whenever need arises and scale down again</li>
+
+</ul>
+
+<p>
+decision early: move to microservices, would allows independent deployments &amp; scaling
+</p>
+
+</aside>
+
+<p class="fragment (appear)">
+🤔 we have this Kubernetes cluster at our disposal
+</p>
+
+<ul>
+<li class="fragment appear">run checks concurrently</li>
+<li class="fragment appear">scale on demand</li>
+
+</ul>
+
+<p class="fragment (appear)">
+Microservices it is!
+</p>
+</section>
+<section id="slide-orgf46bc08">
+<h3 id="orgf46bc08">Architecture</h3>
+<aside class="notes">
+<ul>
+<li>orchestrator receives task from user &rArr; enqueue via celery, tell collector</li>
+<li>collector stores task in DB, collects results from workers, handles new task creation</li>
+<li>workers take tasks from queue, report results back to celery and via REST to collector</li>
+<li>collector stores result in DB, streams results back to user</li>
+<li>also present: general cache for data, s3 for storing bigger data chunks, Redis cache</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/architecture.svg"/>
+</p>
+</section>
+<section id="slide-org007dcea">
+<h3 id="org007dcea">It looked perfect</h3>
+<aside class="notes">
+<ul>
+<li>on paper it is a textbook cloud native architecture, with the default components</li>
+<li>could scale &amp; deploy everything as we like it</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+On paper
+</p>
+
+<ul>
+<li class="fragment appear">all components could be deployed &amp; scaled independently</li>
+<li class="fragment appear">checks ran remotely</li>
+
+</ul>
+</section>
+<section id="slide-org10d4642">
+<h3 id="org10d4642">And then we deployed it</h3>
+<ul>
+<li class="fragment appear">checks disappeared</li>
+<li class="fragment appear">system stopped responding</li>
+<li class="fragment appear">task multiplied uncontrollably</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org2a9e269">
+<h2 id="org2a9e269">Hey where did my job go?</h2>
+<aside class="notes">
+<ul>
+<li>users frequently encountered disappearing jobs</li>
+<li>problem: one of the subtasks would die for <code>$reasons</code>, but it didn't get auto-resumed</li>
+<li>even worse, it <b>couldn't be</b>: celery had the parameters, postgres didn't</li>
+
+</ul>
+
+</aside>
+
+<p>
+<img src="./media/user-asking.png"/>
+</p>
+</section>
+<section id="slide-org9e86bce">
+<h3 id="org9e86bce">Two sources of truth</h3>
+<aside class="notes">
+<ul>
+<li></li>
+
+</ul>
+
+</aside>
+
+
+<p>
+<img src="./media/two-sources-of-truth.svg"/>
+</p>
+</section>
+<section id="slide-orga327081">
+<h3 id="orga327081">Retry is not the same as resume</h3>
+<aside class="notes">
+<ul>
+<li>PostgreSQL knew the run existed</li>
+<li>task inputs lived only in Celery messages</li>
+<li>restarting could not reconstruct the intended work</li>
+
+</ul>
+
+</aside>
+
+<p>
+<img src="./media/storage-oops.svg"/>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgc0b97c5">
+<h2 id="orgc0b97c5">Questions?</h2>
+<p>
+<img src="./media/qr.svg" height="300px"/>
+</p>
+
+<p>
+<i class="fa-solid fa-person-chalkboard"></i> <a href="https://dcermak.github.io/kubernetes-made-it-worse/kubernetes-made-it-worse.html"><code>dcermak.github.io/kubernetes-made-it-worse</code></a>
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="./node_modules/reveal.js/dist/reveal.js"></script>
+<script src="./node_modules/reveal.js/dist/plugin/highlight.js"></script>
+<script src="./node_modules/reveal.js/dist/plugin/notes.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: true,
+slideNumber: false,
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: true,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+
+transition: 'none',
+transitionSpeed: 'default',
+hash: true,
+
+// Plugins with reveal.js 4.x and later
+plugins: [ RevealHighlight, RevealNotes ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>
