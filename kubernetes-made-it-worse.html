@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Generated on 2026-10-21 Wed 15:57 -->
+<!-- Generated on 2026-10-21 Wed 16:11 -->
 <meta charset="utf-8"/>
 <title>We put it on Kubernetes and made it worse</title>
 <meta name="author" content="Dan Čermák"/>
@@ -31,8 +31,8 @@
 CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
 </section>
 <section>
-<section id="slide-org5d1a46b">
-<h2 id="org5d1a46b">Follow Along</h2>
+<section id="slide-org6d57eb4">
+<h2 id="org6d57eb4">Follow Along</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
@@ -43,8 +43,8 @@ CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-comm
 </section>
 </section>
 <section>
-<section id="slide-org8f8b25e">
-<h2 id="org8f8b25e"><code>who -u</code></h2>
+<section id="slide-org50b73a1">
+<h2 id="org50b73a1"><code>who -u</code></h2>
 <p>
 Dan Čermák
 </p>
@@ -69,14 +69,14 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org7162d74">
-<h2 id="org7162d74">Stay a while and listen</h2>
+<section id="slide-orge7f5f72">
+<h2 id="orge7f5f72">Stay a while and listen</h2>
 <p>
-<img src="./media/deckard-cain.png"/>
+<img src="./media/deckard-cain.jpg"/>
 </p>
 </section>
-<section id="slide-orgc63345e">
-<h3 id="orgc63345e">The <code>cve-patch-checker</code></h3>
+<section id="slide-orgcae2c46">
+<h3 id="orgcae2c46">The <code>cve-patch-checker</code></h3>
 <aside class="notes">
 <ul>
 <li>local application for checking security related submissions</li>
@@ -99,8 +99,8 @@ steps:
 <img src="./media/cve-patch-checker.svg"/>
 </p>
 </section>
-<section id="slide-org0c520d2">
-<h3 id="org0c520d2">But it had problems</h3>
+<section id="slide-orgb0b442d">
+<h3 id="orgb0b442d">But it had problems</h3>
 <aside class="notes">
 <ul>
 <li>rebuilds resource intensive</li>
@@ -116,8 +116,8 @@ steps:
 </section>
 </section>
 <section>
-<section id="slide-org3667f60">
-<h2 id="org3667f60">What if we made it scalable?</h2>
+<section id="slide-org149ef5f">
+<h2 id="org149ef5f">What if we made it scalable?</h2>
 <aside class="notes">
 <ul>
 <li>internal k8s cluster became available, would be hosted, can run plethora of workloads there</li>
@@ -146,8 +146,8 @@ decision early: move to microservices, would allows independent deployments &amp
 Microservices it is!
 </p>
 </section>
-<section id="slide-orgf46bc08">
-<h3 id="orgf46bc08">Architecture</h3>
+<section id="slide-org99676b2">
+<h3 id="org99676b2">Architecture</h3>
 <aside class="notes">
 <ul>
 <li>orchestrator receives task from user &rArr; enqueue via celery, tell collector</li>
@@ -164,8 +164,8 @@ Microservices it is!
 <img src="./media/architecture.svg"/>
 </p>
 </section>
-<section id="slide-org007dcea">
-<h3 id="org007dcea">It looked perfect</h3>
+<section id="slide-orgdd9c14b">
+<h3 id="orgdd9c14b">It looked perfect</h3>
 <aside class="notes">
 <ul>
 <li>on paper it is a textbook cloud native architecture, with the default components</li>
@@ -185,8 +185,8 @@ On paper
 
 </ul>
 </section>
-<section id="slide-org10d4642">
-<h3 id="org10d4642">And then we deployed it</h3>
+<section id="slide-org1292c9b">
+<h3 id="org1292c9b">And then we deployed it</h3>
 <ul>
 <li class="fragment appear">checks disappeared</li>
 <li class="fragment appear">system stopped responding</li>
@@ -196,8 +196,8 @@ On paper
 </section>
 </section>
 <section>
-<section id="slide-org2a9e269">
-<h2 id="org2a9e269">Hey where did my job go?</h2>
+<section id="slide-org2dcde0f">
+<h2 id="org2dcde0f">Hey where did my job go?</h2>
 <aside class="notes">
 <ul>
 <li>users frequently encountered disappearing jobs</li>
@@ -212,8 +212,8 @@ On paper
 <img src="./media/user-asking.png"/>
 </p>
 </section>
-<section id="slide-org9e86bce">
-<h3 id="org9e86bce">Two sources of truth</h3>
+<section id="slide-orgb1e3239">
+<h3 id="orgb1e3239">Two sources of truth</h3>
 <aside class="notes">
 <ul>
 <li></li>
@@ -227,8 +227,8 @@ On paper
 <img src="./media/two-sources-of-truth.svg"/>
 </p>
 </section>
-<section id="slide-orga327081">
-<h3 id="orga327081">Retry is not the same as resume</h3>
+<section id="slide-org24c6a89">
+<h3 id="org24c6a89">Retry is not the same as resume</h3>
 <aside class="notes">
 <ul>
 <li>PostgreSQL knew the run existed</li>
@@ -245,8 +245,24 @@ On paper
 </section>
 </section>
 <section>
-<section id="slide-orgc0b97c5">
-<h2 id="orgc0b97c5">Questions?</h2>
+<section id="slide-org637fdbe">
+<h2 id="org637fdbe">Why are there 10k messages in the Queue?</h2>
+<aside class="notes">
+<ul>
+<li>on one horrific day, the queue exploded</li>
+
+</ul>
+
+</aside>
+
+<p>
+<img src="./media/queued-jobs.svg"/>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgec3c8df">
+<h2 id="orgec3c8df">Questions?</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
