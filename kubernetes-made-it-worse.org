@@ -52,6 +52,119 @@ Dan Čermák
 @@html: </table>@@
 @@html: </div>@@
 
+* Stay a while and listen
+
+@@html:<img src="./media/deckard-cain.png"/>@@
+
+** The =cve-patch-checker=
+
+#+begin_notes
+- local application for checking security related submissions
+steps:
+- ABI check resulting binary against code stream
+- lint the submission
+- rebuild with & without patch \Rightarrow compare binaries (i.e. did the patch actually change a thing?)
+- code stream check: check if submission needs to be done against other code streams too, apply it and restart checks there too
+#+end_notes
+
+@@html:<img src="./media/cve-patch-checker.svg"/>@@
+
+** But it had problems
+#+begin_notes
+- rebuilds resource intensive
+- bad connection \Rightarrow checks take ages/stall
+#+end_notes
+
+@@html:<img src="./media/laptop-on-fire.png"/>@@
+
+
+* What if we made it scalable?
+
+#+begin_notes
+- internal k8s cluster became available, would be hosted, can run plethora of workloads there
+- checks could run there, geographically close to the "main" repos
+- offload the expensive work to cluster, scale up whenever need arises and scale down again
+
+decision early: move to microservices, would allows independent deployments & scaling
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+🤔 we have this Kubernetes cluster at our disposal
+
+#+ATTR_REVEAL: :frag (appear)
+- run checks concurrently
+- scale on demand
+
+#+ATTR_REVEAL: :frag (appear)
+Microservices it is!
+
+** Architecture
+
+#+begin_notes
+- orchestrator receives task from user \Rightarrow enqueue via celery, tell collector
+- collector stores task in DB, collects results from workers, handles new task creation
+- workers take tasks from queue, report results back to celery and via REST to collector
+- collector stores result in DB, streams results back to user
+- also present: general cache for data, s3 for storing bigger data chunks, Redis cache
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/architecture.svg"/>@@
+
+
+** It looked perfect
+
+#+begin_notes
+- on paper it is a textbook cloud native architecture, with the default components
+- could scale & deploy everything as we like it
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+On paper
+
+#+ATTR_REVEAL: :frag (appear)
+- all components could be deployed & scaled independently
+- checks ran remotely
+
+** And then we deployed it
+
+#+ATTR_REVEAL: :frag (appear)
+- checks disappeared
+- system stopped responding
+- task multiplied uncontrollably
+
+
+* Hey where did my job go?
+
+#+begin_notes
+- users frequently encountered disappearing jobs
+- problem: one of the subtasks would die for =$reasons=, but it didn't get auto-resumed
+- even worse, it *couldn't be*: celery had the parameters, postgres didn't
+#+end_notes
+
+@@html:<img src="./media/user-asking.png"/>@@
+
+
+** Two sources of truth
+
+#+begin_notes
+-
+#+end_notes
+
+
+@@html:<img src="./media/two-sources-of-truth.svg"/>@@
+
+
+** Retry is not the same as resume
+
+#+begin_notes
+- PostgreSQL knew the run existed
+- task inputs lived only in Celery messages
+- restarting could not reconstruct the intended work
+#+end_notes
+
+@@html:<img src="./media/storage-oops.svg"/>@@
+
 
 
 * Questions?
