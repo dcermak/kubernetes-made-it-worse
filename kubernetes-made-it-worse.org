@@ -175,6 +175,48 @@ On paper
 @@html:<img src="./media/queued-jobs.svg"/>@@
 
 
+** Distributed systems are hard
+
+#+begin_notes
+- in a distributed system, every component can fail :-(
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/failure-path-2.svg"/>@@
+
+#+REVEAL: split
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/failure-path-1.svg"/>@@
+
+#+REVEAL: split
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/failure-path-3.svg"/>@@
+
+
+** Pods Are Disposable
+
+#+begin_notes
+- k8s can kill anything at any moment in time and the app *must* survive that
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/design-for-failure.svg"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+k8s can stop your pod at any moment
+
+
+** But the tests are green!
+
+#+begin_notes
+- most testing done in docker compose
+  \Rightarrow checks happy path by default, very little failure path testing
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/testing-setup.svg"/>@@
 * Questions?
 
 @@html:<img src="./media/qr.svg" height="300px"/>@@
