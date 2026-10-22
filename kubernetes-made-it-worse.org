@@ -40,12 +40,10 @@ Dan Čermák
 @@html: <table class="who-table">@@
 @@html: <tr><td><i class="fab fa-suse"></i></td><td> Open Source Advocate @SUSE</td></tr>@@
 @@html: <tr><td><i class="fab fa-opensuse"></i></td><td> Package maintainer</td></tr>@@
-@@html: <tr><td><i class="fab fa-fedora"></i></td><td> i3 SIG, Package maintainer</td></tr>@@
 @@html: <tr><td><i class="far fa-heart"></i></td><td> Developer Tools, Home Automation, Testing and Documentation</td></tr>@@
 @@html: <tr></tr>@@
 @@html: <tr></tr>@@
 @@html: <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>@@
-@@html: <tr><td><i class="fab fa-github"></i></td><td> <a href="https://github.com/dcermak/">dcermak</a></td></tr>@@
 @@html: <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>@@
 @@html: <tr><td><i class="fab fa-bluesky"></i></td><td> <a href="https://bsky.app/profile/defolos.bsky.social">@defolos.bsky.social</a></td></tr>@@
 @@html: <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Dan on LinkedIn</a></td></tr>@@
@@ -75,7 +73,7 @@ steps:
 - bad connection \Rightarrow checks take ages/stall
 #+end_notes
 
-@@html:<img src="./media/laptop-on-fire.png"/>@@
+@@html:<img src="./media/laptop-on-fire.png" height="300px"/>@@
 
 
 * What if we made it scalable?
@@ -186,12 +184,10 @@ On paper
 
 #+REVEAL: split
 
-#+ATTR_REVEAL: :frag (appear)
 @@html:<img src="./media/failure-path-1.svg"/>@@
 
 #+REVEAL: split
 
-#+ATTR_REVEAL: :frag (appear)
 @@html:<img src="./media/failure-path-3.svg"/>@@
 
 
