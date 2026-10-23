@@ -256,6 +256,26 @@ $ kubectl logs -n cve worker-1234
 @@html:<img src="./media/debugging-in-practice.svg" height="300px"/>@@
 
 
+** OpenTelemetry to the rescue?
+
+#+begin_notes
+- oTel trace: whole distributed operation
+  span: a single event in the operation
+- span supports parent spans, belongs to trace
+- supports auto-instrumentation (easy to get started with)
+
+\Rightarrow trace connects API request to Celery msg, worker task, DB request
+- also support attaching trace & span to log events, exceptions, etc.
+- Metrics: something is wrong
+- Traces: where did it come from?
+- Logs: what happened there?
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/otel-general.svg"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+but observability ≠ reliability
 
 * Did this really happen?
 
