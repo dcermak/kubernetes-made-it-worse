@@ -263,6 +263,7 @@ $ kubectl logs -n cve worker-1234
   span: a single event in the operation
 - span supports parent spans, belongs to trace
 - supports auto-instrumentation (easy to get started with)
+- caveat: your traces shouldn't grow to a too large size \Rightarrow instrumentation will die then
 
 \Rightarrow trace connects API request to Celery msg, worker task, DB request
 - also support attaching trace & span to log events, exceptions, etc.
@@ -277,6 +278,56 @@ $ kubectl logs -n cve worker-1234
 #+ATTR_REVEAL: :frag (appear)
 but observability ≠ reliability
 
+
+* How do we stop losing & duplicating jobs?
+
+#+begin_notes
+problem: crash of any component in the "outbox" causes two sources of truth to diverge
+even worse: cancellation becomes a nightmare
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/current-outbox.svg"/>@@
+
+
+** Define Errors Out Of Existence
+
+#+begin_notes
+- quote from Chapter 10, A Philosophy of Software Design by John Ousterhout
+- if you can avoid an error from happening, do that
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+If you can avoid a failure situation, do that!
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/current-outbox.svg"/>@@
+
+** Merging the backends
+
+#+begin_notes
+- hindsight is always 20/20: why two backends when one removes HTTP?
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/architecture.svg"/>@@
+
+#+REVEAL: split
+@@html:<img src="./media/merged-architecture.svg"/>@@
+
+
+** Transactional outbox
+#+begin_notes
+- in a single transaction, commit the new task state *and* an outbox entry
+- an independent dispatcher publishes outbox entries to RabbitMQ
+- if publication fails it retries
+- if the dispatcher crashes after publication but before marking success, the task may be published twice \Rightarrow idempotency crucial
+
+- outbox fixes dual write or task loss, not duplicate processing \Rightarrow need not to duplicate work
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/transactional-outbox.svg"/>@@
 * Did this really happen?
 
 #+ATTR_REVEAL: :frag (appear)
