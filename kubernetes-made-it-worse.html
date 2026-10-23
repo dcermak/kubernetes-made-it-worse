@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Generated on 2026-10-23 Fri 14:45 -->
+<!-- Generated on 2026-10-23 Fri 16:09 -->
 <meta charset="utf-8"/>
 <title>We put it on Kubernetes and made it worse</title>
 <meta name="author" content="Dan Čermák"/>
@@ -31,8 +31,8 @@
 CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
 </section>
 <section>
-<section id="slide-org5bec720">
-<h2 id="org5bec720">Follow Along</h2>
+<section id="slide-orge8cb9fa">
+<h2 id="orge8cb9fa">Follow Along</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
@@ -43,8 +43,8 @@ CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-comm
 </section>
 </section>
 <section>
-<section id="slide-org41688bb">
-<h2 id="org41688bb"><code>who -u</code></h2>
+<section id="slide-org74a91aa">
+<h2 id="org74a91aa"><code>who -u</code></h2>
 <p>
 Dan Čermák
 </p>
@@ -67,14 +67,14 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org09a418e">
-<h2 id="org09a418e">Stay a while and listen</h2>
+<section id="slide-orga48f0d6">
+<h2 id="orga48f0d6">Stay a while and listen</h2>
 <p>
 <img src="./media/deckard-cain.jpg"/>
 </p>
 </section>
-<section id="slide-orge042406">
-<h3 id="orge042406">The <code>cve-patch-checker</code></h3>
+<section id="slide-org6c1a604">
+<h3 id="org6c1a604">The <code>cve-patch-checker</code></h3>
 <aside class="notes">
 <ul>
 <li>local application for checking security related submissions</li>
@@ -97,8 +97,8 @@ steps:
 <img src="./media/cve-patch-checker.svg"/>
 </p>
 </section>
-<section id="slide-org6587f0e">
-<h3 id="org6587f0e">But it had problems</h3>
+<section id="slide-orgb22d913">
+<h3 id="orgb22d913">But it had problems</h3>
 <aside class="notes">
 <ul>
 <li>rebuilds resource intensive</li>
@@ -114,8 +114,8 @@ steps:
 </section>
 </section>
 <section>
-<section id="slide-org374f2bd">
-<h2 id="org374f2bd">What if we made it scalable?</h2>
+<section id="slide-org280e0bf">
+<h2 id="org280e0bf">What if we made it scalable?</h2>
 <aside class="notes">
 <ul>
 <li>internal k8s cluster became available, would be hosted, can run plethora of workloads there</li>
@@ -144,8 +144,8 @@ decision early: move to microservices, would allows independent deployments &amp
 Microservices it is!
 </p>
 </section>
-<section id="slide-org7c67124">
-<h3 id="org7c67124">Architecture</h3>
+<section id="slide-org535004b">
+<h3 id="org535004b">Architecture</h3>
 <aside class="notes">
 <ul>
 <li>orchestrator receives task from user &rArr; enqueue via celery, tell collector</li>
@@ -162,8 +162,8 @@ Microservices it is!
 <img src="./media/architecture.svg"/>
 </p>
 </section>
-<section id="slide-orge846ad8">
-<h3 id="orge846ad8">It looked perfect</h3>
+<section id="slide-org6506c79">
+<h3 id="org6506c79">It looked perfect</h3>
 <aside class="notes">
 <ul>
 <li>on paper it is a textbook cloud native architecture, with the default components</li>
@@ -183,8 +183,8 @@ On paper
 
 </ul>
 </section>
-<section id="slide-org28dc7d6">
-<h3 id="org28dc7d6">And then we deployed it</h3>
+<section id="slide-orgf9fdfdc">
+<h3 id="orgf9fdfdc">And then we deployed it</h3>
 <ul>
 <li class="fragment appear">checks disappeared</li>
 <li class="fragment appear">system stopped responding</li>
@@ -194,8 +194,8 @@ On paper
 </section>
 </section>
 <section>
-<section id="slide-org9bab2be">
-<h2 id="org9bab2be">Hey where did my job go?</h2>
+<section id="slide-orga002a61">
+<h2 id="orga002a61">Hey where did my job go?</h2>
 <aside class="notes">
 <ul>
 <li>users frequently encountered disappearing jobs</li>
@@ -210,8 +210,8 @@ On paper
 <img src="./media/user-asking.png"/>
 </p>
 </section>
-<section id="slide-orgb658609">
-<h3 id="orgb658609">Two sources of truth</h3>
+<section id="slide-orgd21ccc7">
+<h3 id="orgd21ccc7">Two sources of truth</h3>
 <aside class="notes">
 <ul>
 <li></li>
@@ -225,8 +225,8 @@ On paper
 <img src="./media/two-sources-of-truth.svg"/>
 </p>
 </section>
-<section id="slide-org31d6cfd">
-<h3 id="org31d6cfd">Retry is not the same as resume</h3>
+<section id="slide-org70d5f50">
+<h3 id="org70d5f50">Retry is not the same as resume</h3>
 <aside class="notes">
 <ul>
 <li>PostgreSQL knew the run existed</li>
@@ -243,8 +243,8 @@ On paper
 </section>
 </section>
 <section>
-<section id="slide-org3030818">
-<h2 id="org3030818">Why are there 10k messages in the Queue?</h2>
+<section id="slide-org9dc250e">
+<h2 id="org9dc250e">Why are there 10k messages in the Queue?</h2>
 <aside class="notes">
 <ul>
 <li>on one horrific day, the queue exploded</li>
@@ -257,8 +257,8 @@ On paper
 <img src="./media/queued-jobs.svg"/>
 </p>
 </section>
-<section id="slide-orgc333ad9">
-<h3 id="orgc333ad9">Distributed systems are hard</h3>
+<section id="slide-org72814a4">
+<h3 id="org72814a4">Distributed systems are hard</h3>
 <aside class="notes">
 <ul>
 <li>in a distributed system, every component can fail :-(</li>
@@ -285,8 +285,8 @@ On paper
 <img src="./media/failure-path-3.svg"/>
 </p>
 </section>
-<section id="slide-org7c5b66a">
-<h3 id="org7c5b66a">Pods Are Disposable</h3>
+<section id="slide-orgb86745b">
+<h3 id="orgb86745b">Pods Are Disposable</h3>
 <aside class="notes">
 <ul>
 <li>k8s can kill anything at any moment in time and the app <b>must</b> survive that</li>
@@ -303,8 +303,8 @@ On paper
 k8s can stop your pod at any moment
 </p>
 </section>
-<section id="slide-org5b92a19">
-<h3 id="org5b92a19">But the tests are green!</h3>
+<section id="slide-org0b28ea7">
+<h3 id="org0b28ea7">But the tests are green!</h3>
 <aside class="notes">
 <ul>
 <li>most testing done in docker compose
@@ -328,8 +328,8 @@ Or define failures out of existence
 </section>
 </section>
 <section>
-<section id="slide-org70fa53a">
-<h2 id="org70fa53a">How do you debug this?</h2>
+<section id="slide-org1b95e16">
+<h2 id="org1b95e16">How do you debug this?</h2>
 <aside class="notes">
 <ul>
 <li>debugging sucked hard, because there was only kubectl logs</li>
@@ -375,14 +375,15 @@ Or define failures out of existence
 <img src="./media/debugging-in-practice.svg" height="300px"/>
 </p>
 </section>
-<section id="slide-orge36ce25">
-<h3 id="orge36ce25">OpenTelemetry to the rescue?</h3>
+<section id="slide-orgadb2060">
+<h3 id="orgadb2060">OpenTelemetry to the rescue?</h3>
 <aside class="notes">
 <ul>
 <li>oTel trace: whole distributed operation
 span: a single event in the operation</li>
 <li>span supports parent spans, belongs to trace</li>
 <li>supports auto-instrumentation (easy to get started with)</li>
+<li>caveat: your traces shouldn't grow to a too large size &rArr; instrumentation will die then</li>
 
 </ul>
 
@@ -409,8 +410,82 @@ but observability ≠ reliability
 </section>
 </section>
 <section>
-<section id="slide-orge7f5711">
-<h2 id="orge7f5711">Did this really happen?</h2>
+<section id="slide-org709d4c6">
+<h2 id="org709d4c6">How do we stop losing &amp; duplicating jobs?</h2>
+<aside class="notes">
+<p>
+problem: crash of any component in the "outbox" causes two sources of truth to diverge
+even worse: cancellation becomes a nightmare
+</p>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/current-outbox.svg"/>
+</p>
+</section>
+<section id="slide-org092aa33">
+<h3 id="org092aa33">Define Errors Out Of Existence</h3>
+<aside class="notes">
+<ul>
+<li>quote from Chapter 10, A Philosophy of Software Design by John Ousterhout</li>
+<li>if you can avoid an error from happening, do that</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+If you can avoid a failure situation, do that!
+</p>
+
+<p class="fragment (appear)">
+<img src="./media/current-outbox.svg"/>
+</p>
+</section>
+<section id="slide-orga410668">
+<h3 id="orga410668">Merging the backends</h3>
+<aside class="notes">
+<ul>
+<li>hindsight is always 20/20: why two backends when one removes HTTP?</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/architecture.svg"/>
+</p>
+
+</section>
+<section>
+<p>
+<img src="./media/merged-architecture.svg"/>
+</p>
+</section>
+<section id="slide-org5d5dafe">
+<h3 id="org5d5dafe">Transactional outbox</h3>
+<aside class="notes">
+<ul>
+<li>in a single transaction, commit the new task state <b>and</b> an outbox entry</li>
+<li>an independent dispatcher publishes outbox entries to RabbitMQ</li>
+<li>if publication fails it retries</li>
+<li>if the dispatcher crashes after publication but before marking success, the task may be published twice &rArr; idempotency crucial</li>
+
+<li>outbox fixes dual write or task loss, not duplicate processing &rArr; need not to duplicate work</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/transactional-outbox.svg"/>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgfb61813">
+<h2 id="orgfb61813">Did this really happen?</h2>
 <p class="fragment (appear)">
 <img src="./media/jonathan-frakes-fake.png" height="300px"/>
 </p>
@@ -425,8 +500,8 @@ But the failures are real
 </section>
 </section>
 <section>
-<section id="slide-orga3ffa21">
-<h2 id="orga3ffa21">Questions?</h2>
+<section id="slide-org491a380">
+<h2 id="org491a380">Questions?</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
