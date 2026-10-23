@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="275.65729mm"
+   height="145.4081mm"
+   viewBox="0 0 275.65729 145.40809"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   sodipodi:docname="debugging-in-practice-first.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="1.0396254"
+     inkscape:cx="518.93692"
+     inkscape:cy="115.90713"
+     inkscape:window-width="2560"
+     inkscape:window-height="1373"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <marker
+       style="overflow:visible"
+       id="DartArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DartArrow-0"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path6-1" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DartArrow-0-8"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path6-1-9" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DartArrow-0-8-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path6-1-9-7" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DartArrow-0-8-9"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path6-1-9-6" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="DartArrow-3"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path6-7" />
+    </marker>
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-8.6411992,-21.415847)">
+    <rect
+       style="fill:none;stroke:#33bbee;stroke-width:0.661001;stroke-opacity:1"
+       id="rect1"
+       width="109.43446"
+       height="15.52442"
+       x="32.830334"
+       y="58.280201"
+       ry="4.5080352" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.2116px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0.661001"
+       x="87.369064"
+       y="68.211639"
+       id="text1"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.661"
+         x="87.369064"
+         y="68.211639">kubectl logs … | grep</tspan></text>
+    <rect
+       style="fill:none;stroke:#33bbee;stroke-width:0.661001;stroke-opacity:1"
+       id="rect1-0"
+       width="83.340584"
+       height="15.52442"
+       x="111.43011"
+       y="25.355265"
+       ry="4.5080352" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.2116px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0.661001"
+       x="153.55177"
+       y="35.286705"
+       id="text1-2"><tspan
+         sodipodi:role="line"
+         id="tspan1-0"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.661"
+         x="153.55177"
+         y="35.286705">kubectl get pods</tspan></text>
+    <rect
+       style="fill:none;stroke:#0077bb;stroke-width:0.661001;stroke-opacity:1"
+       id="rect1-3"
+       width="65.151688"
+       height="15.52442"
+       x="8.9716997"
+       y="21.746347"
+       ry="4.5080352" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.2116px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0.661001"
+       x="41.807545"
+       y="31.565247"
+       id="text1-5"><tspan
+         sodipodi:role="line"
+         id="tspan1-9"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.661"
+         x="41.807545"
+         y="31.565247">psql -c &quot;…&quot;</tspan></text>
+    <rect
+       style="fill:none;stroke:#ee7733;stroke-width:0.661001;stroke-opacity:1"
+       id="rect1-3-35"
+       width="65.151688"
+       height="15.52442"
+       x="215.87587"
+       y="37.885929"
+       ry="4.5080352" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.2116px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0.661001"
+       x="248.71172"
+       y="47.70483"
+       id="text1-5-6"><tspan
+         sodipodi:role="line"
+         id="tspan1-9-2"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.661"
+         x="248.71172"
+         y="47.70483">rabbitmqctl</tspan></text>
+    <rect
+       style="fill:none;stroke:#009988;stroke-width:0.661001;stroke-opacity:1"
+       id="rect1-3-3"
+       width="65.151688"
+       height="15.52442"
+       x="9.5890856"
+       y="93.447197"
+       ry="4.5080352" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.2116px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0.661001"
+       x="42.161053"
+       y="103.92579"
+       id="text1-5-3"><tspan
+         sodipodi:role="line"
+         id="tspan1-9-8"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.661"
+         x="42.161053"
+         y="103.92579">$EDITOR $src</tspan></text>
+    <rect
+       style="fill:none;stroke:#009988;stroke-width:0.661001;stroke-opacity:1"
+       id="rect1-3-3-0"
+       width="65.151688"
+       height="15.52442"
+       x="89.803383"
+       y="101.53991"
+       ry="4.5080352" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.2116px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';text-align:center;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:none;stroke:#000000;stroke-width:0.661001"
+       x="122.37535"
+       y="112.01849"
+       id="text1-5-3-8"><tspan
+         sodipodi:role="line"
+         id="tspan1-9-8-6"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:7.76111px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.661"
+         x="122.37535"
+         y="112.01849">$LLM &quot;HELP!&quot;</tspan></text>
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow)"
+       d="m 41.547544,37.270766 c 6.972403,10.454038 18.112237,5.222397 24.622131,17.230322"
+       id="path1"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-3)"
+       d="m 142.2648,66.04241 c 38.78475,-10e-7 33.8891,-20.394271 69.41184,-20.394271"
+       id="path1-2"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-0)"
+       d="M 95.673819,58.132953 C 99.766898,46.632144 128.39649,50.341654 135.80618,43.611171"
+       id="path1-5"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-0-8)"
+       d="M 170.75168,40.944271 C 166.6586,52.44508 138.029,48.73557 130.61931,55.466053"
+       id="path1-5-8"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-0-8-9)"
+       d="M 141.81419,101.53991 C 142.04144,89.877457 119.81105,83.757572 112.80009,76.612681"
+       id="path1-5-8-0"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-0-8)"
+       d="m 74.12339,29.508558 c 12.047333,0.11254 20.187529,2.994039 32.79629,3.608916"
+       id="path2"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-0-8)"
+       d="m 87.547567,73.804619 c -2e-6,9.40195 -3.919396,15.088458 -10.017446,19.312077"
+       id="path8"
+       sodipodi:nodetypes="cc" />
+    <path
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:0.661;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow-0-8-3)"
+       d="m 74.740776,101.20941 c 4.591069,3.79059 3.615894,7.87793 10.923578,8.09271"
+       id="path8-7"
+       sodipodi:nodetypes="cc" />
+  </g>
+</svg>

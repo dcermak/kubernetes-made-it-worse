@@ -213,6 +213,61 @@ k8s can stop your pod at any moment
 
 #+ATTR_REVEAL: :frag (appear)
 @@html:<img src="./media/testing-setup.svg"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+Test for the unhappy path too!
+
+#+ATTR_REVEAL: :frag (appear)
+Or define failures out of existence
+
+* How do you debug this?
+
+#+begin_notes
+- debugging sucked hard, because there was only kubectl logs
+- reconstruct full run next to impossible: query DB for task IDs, =kubectl logs= \Rightarrow grep for IDs \Rightarrow =kubectl logs= again, etc.pp.
+- fun problem: when containers die, you loose the logs and are screwed
+
+- so you just have logs, but connecting all the dots is manual, especially if things go south
+- do mind: as DB != celery, so only because DB says so, doesn't mean the task actually exists in Celery and vice versa
+#+end_notes
+
+#+begin_src shell
+$ kubectl logs -n cve worker-1234
+
+2024-10-23 09:41:02,318 INFO     [worker.runner] Starting check 8f6c2b91-44de-4a03-bf11-c279e05d73a8
+2024-10-23 09:41:02,325 INFO     [checks.coverage] Checking CVE-2024-1842 for SLE15-SP6
+2024-10-23 09:41:03,741 DEBUG    [checks.coverage] Found 4 affected code streams
+2024-10-23 09:41:04,112 INFO     [checks.coverage] Missing verification for openssl on SLE15-SP5
+2024-10-23 09:41:04,118 INFO     [worker.scheduler] Scheduling binary_impact_check
+2024-10-23 09:41:04,123 INFO     [worker.scheduler] Next check: b47a9e21-7d36-49cb-8e54-c31802ad6f90
+2024-10-23 09:41:04,139 INFO     [worker.scheduler] Task published to RabbitMQ
+2024-10-23 09:41:04,156 INFO     [checks.coverage] Coverage check completed
+2024-10-23 09:41:04,201 INFO     [worker.runner] Check 8f6c2b91-44de-4a03-bf11-c279e05d73a8 succeeded
+2024-10-23 09:41:04,216 INFO     [worker.runner] Starting check d31c5f82-61b0-4c95-9e27-f8a2136b40dd
+2024-10-23 09:41:04,221 INFO     [checks.lint] Validating patch metadata
+2024-10-23 09:41:05,034 WARNING  [checks.lint] Missing upstream commit reference
+2024-10-23 09:41:05,052 INFO     [worker.runner] Check d31c5f82-61b0-4c95-9e27-f8a2136b40dd completed
+#+end_src
+
+#+REVEAL: split
+@@html:<img src="./media/debugging-in-practice-first.svg" height="300px"/>@@
+
+#+REVEAL: split
+@@html:<img src="./media/debugging-in-practice.svg" height="300px"/>@@
+
+
+
+* Did this really happen?
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/jonathan-frakes-fake.png" height="300px"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+No, the story is a fake
+
+#+ATTR_REVEAL: :frag (appear)
+But the failures are real
+
 * Questions?
 
 @@html:<img src="./media/qr.svg" height="300px"/>@@
