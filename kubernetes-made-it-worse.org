@@ -46,13 +46,16 @@ Dan Čermák
 @@html: <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>@@
 @@html: <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>@@
 @@html: <tr><td><i class="fab fa-bluesky"></i></td><td> <a href="https://bsky.app/profile/defolos.bsky.social">@defolos.bsky.social</a></td></tr>@@
-@@html: <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Dan on LinkedIn</a></td></tr>@@
+@@html: <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Find me on LinkedIn</a></td></tr>@@
 @@html: </table>@@
 @@html: </div>@@
 
 * Stay a while and listen
 
 @@html:<img src="./media/deckard-cain.jpg"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+To the story of the =cve-patch-checker=
 
 ** The =cve-patch-checker=
 
@@ -68,26 +71,32 @@ steps:
 @@html:<img src="./media/cve-patch-checker.svg"/>@@
 
 ** But it had problems
+
 #+begin_notes
-- rebuilds resource intensive
 - bad connection \Rightarrow checks take ages/stall
+- rebuilds resource intensive
 #+end_notes
 
-@@html:<img src="./media/laptop-on-fire.png" height="300px"/>@@
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/annoyed-developer-waiting.svg" height="300px"/>@@
+
+#+REVEAL: split
+@@html:<img src="./media/annoyed-developer-fire.svg" height="300px"/>@@
 
 
 * What if we made it scalable?
 
 #+begin_notes
 - internal k8s cluster became available, would be hosted, can run plethora of workloads there
-- checks could run there, geographically close to the "main" repos
+- checks could run there, geographically close to the "main" repos with tons of compute at their disposal
 - offload the expensive work to cluster, scale up whenever need arises and scale down again
 
 decision early: move to microservices, would allows independent deployments & scaling
+made sense: multiple distinct and independent components
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
-🤔 we have this Kubernetes cluster at our disposal
+🤔 we have a Kubernetes cluster at our disposal
 
 #+ATTR_REVEAL: :frag (appear)
 - run checks concurrently
@@ -104,6 +113,10 @@ Microservices it is!
 - workers take tasks from queue, report results back to celery and via REST to collector
 - collector stores result in DB, streams results back to user
 - also present: general cache for data, s3 for storing bigger data chunks, Redis cache
+
+looks quite nice on paper:
+- textbook cloud native architecture, with the default components
+- could scale & deploy everything as we like it, checks would no longer hog your box
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
@@ -113,18 +126,12 @@ Microservices it is!
 ** It looked perfect
 
 #+begin_notes
-- on paper it is a textbook cloud native architecture, with the default components
-- could scale & deploy everything as we like it
+- "textbook" architecture wasn't so good in production
+- users submitted a task for a CVE submission \Rightarrow never finished or disappeared
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
-On paper
-
-#+ATTR_REVEAL: :frag (appear)
-- all components could be deployed & scaled independently
-- checks ran remotely
-
-** And then we deployed it
+And then we deployed it 🫠
 
 #+ATTR_REVEAL: :frag (appear)
 - checks disappeared
@@ -146,7 +153,8 @@ On paper
 ** Two sources of truth
 
 #+begin_notes
--
+- celery gets all args + job ids, DB only receives job IDs + task types
+- primary reason: DB only stores data for web response and not to tie schema 
 #+end_notes
 
 
@@ -156,69 +164,13 @@ On paper
 ** Retry is not the same as resume
 
 #+begin_notes
-- PostgreSQL knew the run existed
-- task inputs lived only in Celery messages
+- PostgreSQL knew the run existed + initial params (and even that not initially)
+- sub-task inputs lived only in Celery messages, failure there must be retried
 - restarting could not reconstruct the intended work
 #+end_notes
 
 @@html:<img src="./media/storage-oops.svg"/>@@
 
-
-* Why are there 10k messages in the Queue?
-
-#+begin_notes
-- on one horrific day, the queue exploded
-#+end_notes
-
-@@html:<img src="./media/queued-jobs.svg"/>@@
-
-
-** Distributed systems are hard
-
-#+begin_notes
-- in a distributed system, every component can fail :-(
-#+end_notes
-
-#+ATTR_REVEAL: :frag (appear)
-@@html:<img src="./media/failure-path-2.svg"/>@@
-
-#+REVEAL: split
-
-@@html:<img src="./media/failure-path-1.svg"/>@@
-
-#+REVEAL: split
-
-@@html:<img src="./media/failure-path-3.svg"/>@@
-
-
-** Pods Are Disposable
-
-#+begin_notes
-- k8s can kill anything at any moment in time and the app *must* survive that
-#+end_notes
-
-#+ATTR_REVEAL: :frag (appear)
-@@html:<img src="./media/design-for-failure.svg"/>@@
-
-#+ATTR_REVEAL: :frag (appear)
-k8s can stop your pod at any moment
-
-
-** But the tests are green!
-
-#+begin_notes
-- most testing done in docker compose
-  \Rightarrow checks happy path by default, very little failure path testing
-#+end_notes
-
-#+ATTR_REVEAL: :frag (appear)
-@@html:<img src="./media/testing-setup.svg"/>@@
-
-#+ATTR_REVEAL: :frag (appear)
-Test for the unhappy path too!
-
-#+ATTR_REVEAL: :frag (appear)
-Or define failures out of existence
 
 * How do you debug this?
 
@@ -279,6 +231,60 @@ $ kubectl logs -n cve worker-1234
 but observability ≠ reliability
 
 
+* Why are there 10k messages in the Queue?
+
+#+begin_notes
+- on one horrific day, the queue exploded
+#+end_notes
+
+@@html:<img src="./media/queued-jobs.svg"/>@@
+
+
+** Distributed systems are hard
+
+#+begin_notes
+- in a distributed system, every component can fail :-(
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/failure-path-2.svg"/>@@
+
+#+REVEAL: split
+
+@@html:<img src="./media/failure-path-1.svg"/>@@
+
+#+REVEAL: split
+
+@@html:<img src="./media/failure-path-3.svg"/>@@
+
+
+** Pods Are Disposable
+
+#+begin_notes
+- k8s can kill anything at any moment in time and the app *must* survive that
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/design-for-failure.svg"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+k8s can stop your pod at any moment
+
+
+** But the tests are green!
+
+#+begin_notes
+- most testing done in docker compose
+  \Rightarrow checks happy path by default, very little failure path testing
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/testing-setup.svg" height="400px"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+Test for the unhappy path too!
+
+
 * How do we stop losing & duplicating jobs?
 
 #+begin_notes
@@ -328,6 +334,76 @@ If you can avoid a failure situation, do that!
 
 #+ATTR_REVEAL: :frag (appear)
 @@html:<img src="./media/transactional-outbox.svg"/>@@
+
+
+# ** But we still can't restart…
+
+# #+begin_notes
+# #+end_notes
+
+** And the fan out?
+
+#+begin_notes
+- big issue: task creation happens during work
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/jobs-fan-out.svg"/>@@
+
+#+REVEAL: split
+@@html:<img src="./media/jobs-planning.svg"/>@@
+
+
+# * Did we solve the wrong problem?
+# #+begin_notes
+# - We wanted to offload expensive verification from security team's laptops
+# - Kubernetes was useful place to run scalable checks near the mirrors
+# - created problem by unnecessary distribution with tight coupling through everything
+# #+end_notes
+
+# #+ATTR_REVEAL: :frag (appear)
+# We solved a laptop problem…
+
+# #+ATTR_REVEAL: :frag (appear)
+# …and created an on-call problem
+
+# #+ATTR_REVEAL: :frag (appear)
+# *Distribute the work, not necessarily the application*
+
+
+* Lessons learned
+
+#+begin_notes
+- distributed systems are unforgiving and will punish your mistakes in the worst way (especially if their infra is flaky)
+- you most likely can solve your problem with a bigger machine and off the shelf solutions
+#+end_notes
+
+#+ATTR_REVEAL: :frag (appear)
+#+begin_quote
+Distributed systems are hard
+#+end_quote
+
+#+ATTR_REVEAL: :frag (appear)
+#+begin_quote
+You are not Google
+#+end_quote
+
+#+REVEAL: split
+
+#+begin_notes
+source: https://martinfowler.com/bliki/MicroservicePremium.html
+and quote from [[https://martinfowler.com/bliki/MonolithFirst.html][Martin Fowler]] too
+#+end_notes
+
+@@html:<img src="./media/monolith-vs-microservice-productivity.svg" height="350px"/>@@
+
+#+ATTR_REVEAL: :frag (appear)
+#+begin_quote
+You shouldn't start a new project with microservices, even if you're sure your
+application will be big enough to make it worthwhile
+#+end_quote
+
+
 * Did this really happen?
 
 #+ATTR_REVEAL: :frag (appear)
@@ -338,6 +414,7 @@ No, the story is a fake
 
 #+ATTR_REVEAL: :frag (appear)
 But the failures are real
+
 
 * Questions?
 
