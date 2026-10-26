@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Generated on 2026-10-23 Fri 16:09 -->
+<!-- Generated on 2026-10-26 Mon 14:07 -->
 <meta charset="utf-8"/>
 <title>We put it on Kubernetes and made it worse</title>
 <meta name="author" content="Dan Čermák"/>
@@ -31,8 +31,8 @@
 CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
 </section>
 <section>
-<section id="slide-orge8cb9fa">
-<h2 id="orge8cb9fa">Follow Along</h2>
+<section id="slide-org3f6cd17">
+<h2 id="org3f6cd17">Follow Along</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
@@ -43,8 +43,8 @@ CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-comm
 </section>
 </section>
 <section>
-<section id="slide-org74a91aa">
-<h2 id="org74a91aa"><code>who -u</code></h2>
+<section id="slide-org3978753">
+<h2 id="org3978753"><code>who -u</code></h2>
 <p>
 Dan Čermák
 </p>
@@ -60,21 +60,25 @@ Dan Čermák
  <tr><td><i class="fa-solid fa-globe"></i></td><td> <a href="https://dancermak.name/">https://dancermak.name</a></td></tr>
  <tr><td><i class="fab fa-mastodon"></i></td><td> <a href="https://mastodon.social/@Defolos">@Defolos@mastodon.social</a></td></tr>
  <tr><td><i class="fab fa-bluesky"></i></td><td> <a href="https://bsky.app/profile/defolos.bsky.social">@defolos.bsky.social</a></td></tr>
- <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Dan on LinkedIn</a></td></tr>
+ <tr><td><i class="fab fa-linkedin"></i></td><td> <a href="https://www.linkedin.com/in/dan-cermak-532a1420b/">Find me on LinkedIn</a></td></tr>
  </table>
  </div>
 </p>
 </section>
 </section>
 <section>
-<section id="slide-orga48f0d6">
-<h2 id="orga48f0d6">Stay a while and listen</h2>
+<section id="slide-org8cdfeff">
+<h2 id="org8cdfeff">Stay a while and listen</h2>
 <p>
 <img src="./media/deckard-cain.jpg"/>
 </p>
+
+<p class="fragment (appear)">
+To the story of the <code>cve-patch-checker</code>
+</p>
 </section>
-<section id="slide-org6c1a604">
-<h3 id="org6c1a604">The <code>cve-patch-checker</code></h3>
+<section id="slide-org6937e32">
+<h3 id="org6937e32">The <code>cve-patch-checker</code></h3>
 <aside class="notes">
 <ul>
 <li>local application for checking security related submissions</li>
@@ -97,41 +101,48 @@ steps:
 <img src="./media/cve-patch-checker.svg"/>
 </p>
 </section>
-<section id="slide-orgb22d913">
-<h3 id="orgb22d913">But it had problems</h3>
+<section id="slide-orgbdf2892">
+<h3 id="orgbdf2892">But it had problems</h3>
 <aside class="notes">
 <ul>
-<li>rebuilds resource intensive</li>
 <li>bad connection &rArr; checks take ages/stall</li>
+<li>rebuilds resource intensive</li>
 
 </ul>
 
 </aside>
 
+<p class="fragment (appear)">
+<img src="./media/annoyed-developer-waiting.svg" height="300px"/>
+</p>
+
+</section>
+<section>
 <p>
-<img src="./media/laptop-on-fire.png" height="300px"/>
+<img src="./media/annoyed-developer-fire.svg" height="300px"/>
 </p>
 </section>
 </section>
 <section>
-<section id="slide-org280e0bf">
-<h2 id="org280e0bf">What if we made it scalable?</h2>
+<section id="slide-org1b2aa63">
+<h2 id="org1b2aa63">What if we made it scalable?</h2>
 <aside class="notes">
 <ul>
 <li>internal k8s cluster became available, would be hosted, can run plethora of workloads there</li>
-<li>checks could run there, geographically close to the "main" repos</li>
+<li>checks could run there, geographically close to the "main" repos with tons of compute at their disposal</li>
 <li>offload the expensive work to cluster, scale up whenever need arises and scale down again</li>
 
 </ul>
 
 <p>
 decision early: move to microservices, would allows independent deployments &amp; scaling
+made sense: multiple distinct and independent components
 </p>
 
 </aside>
 
 <p class="fragment (appear)">
-🤔 we have this Kubernetes cluster at our disposal
+🤔 we have a Kubernetes cluster at our disposal
 </p>
 
 <ul>
@@ -144,8 +155,8 @@ decision early: move to microservices, would allows independent deployments &amp
 Microservices it is!
 </p>
 </section>
-<section id="slide-org535004b">
-<h3 id="org535004b">Architecture</h3>
+<section id="slide-org9ed453e">
+<h3 id="org9ed453e">Architecture</h3>
 <aside class="notes">
 <ul>
 <li>orchestrator receives task from user &rArr; enqueue via celery, tell collector</li>
@@ -156,35 +167,36 @@ Microservices it is!
 
 </ul>
 
+<p>
+looks quite nice on paper:
+</p>
+<ul>
+<li>textbook cloud native architecture, with the default components</li>
+<li>could scale &amp; deploy everything as we like it, checks would no longer hog your box</li>
+
+</ul>
+
 </aside>
 
 <p class="fragment (appear)">
 <img src="./media/architecture.svg"/>
 </p>
 </section>
-<section id="slide-org6506c79">
-<h3 id="org6506c79">It looked perfect</h3>
+<section id="slide-org4fa99ec">
+<h3 id="org4fa99ec">It looked perfect</h3>
 <aside class="notes">
 <ul>
-<li>on paper it is a textbook cloud native architecture, with the default components</li>
-<li>could scale &amp; deploy everything as we like it</li>
+<li>"textbook" architecture wasn't so good in production</li>
+<li>users submitted a task for a CVE submission &rArr; never finished or disappeared</li>
 
 </ul>
 
 </aside>
 
 <p class="fragment (appear)">
-On paper
+And then we deployed it 🫠
 </p>
 
-<ul>
-<li class="fragment appear">all components could be deployed &amp; scaled independently</li>
-<li class="fragment appear">checks ran remotely</li>
-
-</ul>
-</section>
-<section id="slide-orgf9fdfdc">
-<h3 id="orgf9fdfdc">And then we deployed it</h3>
 <ul>
 <li class="fragment appear">checks disappeared</li>
 <li class="fragment appear">system stopped responding</li>
@@ -194,8 +206,8 @@ On paper
 </section>
 </section>
 <section>
-<section id="slide-orga002a61">
-<h2 id="orga002a61">Hey where did my job go?</h2>
+<section id="slide-org767bbfb">
+<h2 id="org767bbfb">Hey where did my job go?</h2>
 <aside class="notes">
 <ul>
 <li>users frequently encountered disappearing jobs</li>
@@ -210,11 +222,12 @@ On paper
 <img src="./media/user-asking.png"/>
 </p>
 </section>
-<section id="slide-orgd21ccc7">
-<h3 id="orgd21ccc7">Two sources of truth</h3>
+<section id="slide-orgd5a1072">
+<h3 id="orgd5a1072">Two sources of truth</h3>
 <aside class="notes">
 <ul>
-<li></li>
+<li>celery gets all args + job ids, DB only receives job IDs + task types</li>
+<li>primary reason: DB only stores data for web response and not to tie schema</li>
 
 </ul>
 
@@ -225,12 +238,12 @@ On paper
 <img src="./media/two-sources-of-truth.svg"/>
 </p>
 </section>
-<section id="slide-org70d5f50">
-<h3 id="org70d5f50">Retry is not the same as resume</h3>
+<section id="slide-orge2f85cd">
+<h3 id="orge2f85cd">Retry is not the same as resume</h3>
 <aside class="notes">
 <ul>
-<li>PostgreSQL knew the run existed</li>
-<li>task inputs lived only in Celery messages</li>
+<li>PostgreSQL knew the run existed + initial params (and even that not initially)</li>
+<li>sub-task inputs lived only in Celery messages, failure there must be retried</li>
 <li>restarting could not reconstruct the intended work</li>
 
 </ul>
@@ -243,93 +256,8 @@ On paper
 </section>
 </section>
 <section>
-<section id="slide-org9dc250e">
-<h2 id="org9dc250e">Why are there 10k messages in the Queue?</h2>
-<aside class="notes">
-<ul>
-<li>on one horrific day, the queue exploded</li>
-
-</ul>
-
-</aside>
-
-<p>
-<img src="./media/queued-jobs.svg"/>
-</p>
-</section>
-<section id="slide-org72814a4">
-<h3 id="org72814a4">Distributed systems are hard</h3>
-<aside class="notes">
-<ul>
-<li>in a distributed system, every component can fail :-(</li>
-
-</ul>
-
-</aside>
-
-<p class="fragment (appear)">
-<img src="./media/failure-path-2.svg"/>
-</p>
-
-</section>
-<section>
-
-<p>
-<img src="./media/failure-path-1.svg"/>
-</p>
-
-</section>
-<section>
-
-<p>
-<img src="./media/failure-path-3.svg"/>
-</p>
-</section>
-<section id="slide-orgb86745b">
-<h3 id="orgb86745b">Pods Are Disposable</h3>
-<aside class="notes">
-<ul>
-<li>k8s can kill anything at any moment in time and the app <b>must</b> survive that</li>
-
-</ul>
-
-</aside>
-
-<p class="fragment (appear)">
-<img src="./media/design-for-failure.svg"/>
-</p>
-
-<p class="fragment (appear)">
-k8s can stop your pod at any moment
-</p>
-</section>
-<section id="slide-org0b28ea7">
-<h3 id="org0b28ea7">But the tests are green!</h3>
-<aside class="notes">
-<ul>
-<li>most testing done in docker compose
-&rArr; checks happy path by default, very little failure path testing</li>
-
-</ul>
-
-</aside>
-
-<p class="fragment (appear)">
-<img src="./media/testing-setup.svg"/>
-</p>
-
-<p class="fragment (appear)">
-Test for the unhappy path too!
-</p>
-
-<p class="fragment (appear)">
-Or define failures out of existence
-</p>
-</section>
-</section>
-<section>
-<section id="slide-org1b95e16">
-<h2 id="org1b95e16">How do you debug this?</h2>
+<section id="slide-org911e4ac">
+<h2 id="org911e4ac">How do you debug this?</h2>
 <aside class="notes">
 <ul>
 <li>debugging sucked hard, because there was only kubectl logs</li>
@@ -375,8 +303,8 @@ Or define failures out of existence
 <img src="./media/debugging-in-practice.svg" height="300px"/>
 </p>
 </section>
-<section id="slide-orgadb2060">
-<h3 id="orgadb2060">OpenTelemetry to the rescue?</h3>
+<section id="slide-org017ee9e">
+<h3 id="org017ee9e">OpenTelemetry to the rescue?</h3>
 <aside class="notes">
 <ul>
 <li>oTel trace: whole distributed operation
@@ -410,8 +338,89 @@ but observability ≠ reliability
 </section>
 </section>
 <section>
-<section id="slide-org709d4c6">
-<h2 id="org709d4c6">How do we stop losing &amp; duplicating jobs?</h2>
+<section id="slide-org320558d">
+<h2 id="org320558d">Why are there 10k messages in the Queue?</h2>
+<aside class="notes">
+<ul>
+<li>on one horrific day, the queue exploded</li>
+
+</ul>
+
+</aside>
+
+<p>
+<img src="./media/queued-jobs.svg"/>
+</p>
+</section>
+<section id="slide-org7c788a5">
+<h3 id="org7c788a5">Distributed systems are hard</h3>
+<aside class="notes">
+<ul>
+<li>in a distributed system, every component can fail :-(</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/failure-path-2.svg"/>
+</p>
+
+</section>
+<section>
+
+<p>
+<img src="./media/failure-path-1.svg"/>
+</p>
+
+</section>
+<section>
+
+<p>
+<img src="./media/failure-path-3.svg"/>
+</p>
+</section>
+<section id="slide-orgee5cea8">
+<h3 id="orgee5cea8">Pods Are Disposable</h3>
+<aside class="notes">
+<ul>
+<li>k8s can kill anything at any moment in time and the app <b>must</b> survive that</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/design-for-failure.svg"/>
+</p>
+
+<p class="fragment (appear)">
+k8s can stop your pod at any moment
+</p>
+</section>
+<section id="slide-orgb87369e">
+<h3 id="orgb87369e">But the tests are green!</h3>
+<aside class="notes">
+<ul>
+<li>most testing done in docker compose
+&rArr; checks happy path by default, very little failure path testing</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/testing-setup.svg" height="400px"/>
+</p>
+
+<p class="fragment (appear)">
+Test for the unhappy path too!
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org5752cb8">
+<h2 id="org5752cb8">How do we stop losing &amp; duplicating jobs?</h2>
 <aside class="notes">
 <p>
 problem: crash of any component in the "outbox" causes two sources of truth to diverge
@@ -424,8 +433,8 @@ even worse: cancellation becomes a nightmare
 <img src="./media/current-outbox.svg"/>
 </p>
 </section>
-<section id="slide-org092aa33">
-<h3 id="org092aa33">Define Errors Out Of Existence</h3>
+<section id="slide-org7ad2504">
+<h3 id="org7ad2504">Define Errors Out Of Existence</h3>
 <aside class="notes">
 <ul>
 <li>quote from Chapter 10, A Philosophy of Software Design by John Ousterhout</li>
@@ -443,8 +452,8 @@ If you can avoid a failure situation, do that!
 <img src="./media/current-outbox.svg"/>
 </p>
 </section>
-<section id="slide-orga410668">
-<h3 id="orga410668">Merging the backends</h3>
+<section id="slide-orgb9a54e5">
+<h3 id="orgb9a54e5">Merging the backends</h3>
 <aside class="notes">
 <ul>
 <li>hindsight is always 20/20: why two backends when one removes HTTP?</li>
@@ -463,8 +472,8 @@ If you can avoid a failure situation, do that!
 <img src="./media/merged-architecture.svg"/>
 </p>
 </section>
-<section id="slide-org5d5dafe">
-<h3 id="org5d5dafe">Transactional outbox</h3>
+<section id="slide-orgd294c38">
+<h3 id="orgd294c38">Transactional outbox</h3>
 <aside class="notes">
 <ul>
 <li>in a single transaction, commit the new task state <b>and</b> an outbox entry</li>
@@ -482,10 +491,77 @@ If you can avoid a failure situation, do that!
 <img src="./media/transactional-outbox.svg"/>
 </p>
 </section>
+<section id="slide-org461b637">
+<h3 id="org461b637">And the fan out?</h3>
+<aside class="notes">
+<ul>
+<li>big issue: task creation happens during work</li>
+
+</ul>
+
+</aside>
+
+<p class="fragment (appear)">
+<img src="./media/jobs-fan-out.svg"/>
+</p>
+
 </section>
 <section>
-<section id="slide-orgfb61813">
-<h2 id="orgfb61813">Did this really happen?</h2>
+<p>
+<img src="./media/jobs-planning.svg"/>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgf9b57dd">
+<h2 id="orgf9b57dd">Lessons learned</h2>
+<aside class="notes">
+<ul>
+<li>distributed systems are unforgiving and will punish your mistakes in the worst way (especially if their infra is flaky)</li>
+<li>you most likely can solve your problem with a bigger machine and off the shelf solutions</li>
+
+</ul>
+
+</aside>
+
+<blockquote class="fragment (appear)">
+<p>
+Distributed systems are hard
+</p>
+</blockquote>
+
+<blockquote class="fragment (appear)">
+<p>
+You are not Google
+</p>
+</blockquote>
+
+</section>
+<section>
+
+<aside class="notes">
+<p>
+source: <a href="https://martinfowler.com/bliki/MicroservicePremium.html">https://martinfowler.com/bliki/MicroservicePremium.html</a>
+and quote from <a href="https://martinfowler.com/bliki/MonolithFirst.html">Martin Fowler</a> too
+</p>
+
+</aside>
+
+<p>
+<img src="./media/monolith-vs-microservice-productivity.svg" height="350px"/>
+</p>
+
+<blockquote class="fragment (appear)">
+<p>
+You shouldn't start a new project with microservices, even if you're sure your
+application will be big enough to make it worthwhile
+</p>
+</blockquote>
+</section>
+</section>
+<section>
+<section id="slide-org2d0abff">
+<h2 id="org2d0abff">Did this really happen?</h2>
 <p class="fragment (appear)">
 <img src="./media/jonathan-frakes-fake.png" height="300px"/>
 </p>
@@ -500,8 +576,8 @@ But the failures are real
 </section>
 </section>
 <section>
-<section id="slide-org491a380">
-<h2 id="org491a380">Questions?</h2>
+<section id="slide-org92f89c0">
+<h2 id="org92f89c0">Questions?</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
