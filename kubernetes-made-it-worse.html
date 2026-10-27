@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Generated on 2026-10-26 Mon 14:07 -->
+<!-- Generated on 2026-10-27 Tue 10:24 -->
 <meta charset="utf-8"/>
 <title>We put it on Kubernetes and made it worse</title>
 <meta name="author" content="Dan Čermák"/>
@@ -31,8 +31,8 @@
 CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-commons-by"></i></a></p></div>
 </section>
 <section>
-<section id="slide-org3f6cd17">
-<h2 id="org3f6cd17">Follow Along</h2>
+<section id="slide-org906f36e">
+<h2 id="org906f36e">Follow Along</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
@@ -43,8 +43,8 @@ CC BY 4.0 <i class="fab fa-creative-commons"></i> <i class="fab fa-creative-comm
 </section>
 </section>
 <section>
-<section id="slide-org3978753">
-<h2 id="org3978753"><code>who -u</code></h2>
+<section id="slide-org78044d3">
+<h2 id="org78044d3"><code>who -u</code></h2>
 <p>
 Dan Čermák
 </p>
@@ -67,8 +67,8 @@ Dan Čermák
 </section>
 </section>
 <section>
-<section id="slide-org8cdfeff">
-<h2 id="org8cdfeff">Stay a while and listen</h2>
+<section id="slide-org8271ea2">
+<h2 id="org8271ea2">Stay a while and listen</h2>
 <p>
 <img src="./media/deckard-cain.jpg"/>
 </p>
@@ -77,8 +77,8 @@ Dan Čermák
 To the story of the <code>cve-patch-checker</code>
 </p>
 </section>
-<section id="slide-org6937e32">
-<h3 id="org6937e32">The <code>cve-patch-checker</code></h3>
+<section id="slide-orgd803fac">
+<h3 id="orgd803fac">The <code>cve-patch-checker</code></h3>
 <aside class="notes">
 <ul>
 <li>local application for checking security related submissions</li>
@@ -101,8 +101,8 @@ steps:
 <img src="./media/cve-patch-checker.svg"/>
 </p>
 </section>
-<section id="slide-orgbdf2892">
-<h3 id="orgbdf2892">But it had problems</h3>
+<section id="slide-orgcd1078b">
+<h3 id="orgcd1078b">But it had problems</h3>
 <aside class="notes">
 <ul>
 <li>bad connection &rArr; checks take ages/stall</li>
@@ -124,8 +124,8 @@ steps:
 </section>
 </section>
 <section>
-<section id="slide-org1b2aa63">
-<h2 id="org1b2aa63">What if we made it scalable?</h2>
+<section id="slide-org3bca1d6">
+<h2 id="org3bca1d6">What if we made it scalable?</h2>
 <aside class="notes">
 <ul>
 <li>internal k8s cluster became available, would be hosted, can run plethora of workloads there</li>
@@ -155,8 +155,8 @@ made sense: multiple distinct and independent components
 Microservices it is!
 </p>
 </section>
-<section id="slide-org9ed453e">
-<h3 id="org9ed453e">Architecture</h3>
+<section id="slide-org430625a">
+<h3 id="org430625a">Architecture</h3>
 <aside class="notes">
 <ul>
 <li>orchestrator receives task from user &rArr; enqueue via celery, tell collector</li>
@@ -182,8 +182,8 @@ looks quite nice on paper:
 <img src="./media/architecture.svg"/>
 </p>
 </section>
-<section id="slide-org4fa99ec">
-<h3 id="org4fa99ec">It looked perfect</h3>
+<section id="slide-org9933597">
+<h3 id="org9933597">It looked perfect</h3>
 <aside class="notes">
 <ul>
 <li>"textbook" architecture wasn't so good in production</li>
@@ -206,8 +206,8 @@ And then we deployed it 🫠
 </section>
 </section>
 <section>
-<section id="slide-org767bbfb">
-<h2 id="org767bbfb">Hey where did my job go?</h2>
+<section id="slide-org1575609">
+<h2 id="org1575609">Hey where did my job go?</h2>
 <aside class="notes">
 <ul>
 <li>users frequently encountered disappearing jobs</li>
@@ -222,8 +222,8 @@ And then we deployed it 🫠
 <img src="./media/user-asking.png"/>
 </p>
 </section>
-<section id="slide-orgd5a1072">
-<h3 id="orgd5a1072">Two sources of truth</h3>
+<section id="slide-org3cbd4a0">
+<h3 id="org3cbd4a0">Two sources of truth</h3>
 <aside class="notes">
 <ul>
 <li>celery gets all args + job ids, DB only receives job IDs + task types</li>
@@ -238,8 +238,8 @@ And then we deployed it 🫠
 <img src="./media/two-sources-of-truth.svg"/>
 </p>
 </section>
-<section id="slide-orge2f85cd">
-<h3 id="orge2f85cd">Retry is not the same as resume</h3>
+<section id="slide-orgcbfbcf7">
+<h3 id="orgcbfbcf7">Retry is not the same as resume</h3>
 <aside class="notes">
 <ul>
 <li>PostgreSQL knew the run existed + initial params (and even that not initially)</li>
@@ -256,8 +256,8 @@ And then we deployed it 🫠
 </section>
 </section>
 <section>
-<section id="slide-org911e4ac">
-<h2 id="org911e4ac">How do you debug this?</h2>
+<section id="slide-org3509bf2">
+<h2 id="org3509bf2">How do you debug this?</h2>
 <aside class="notes">
 <ul>
 <li>debugging sucked hard, because there was only kubectl logs</li>
@@ -303,8 +303,8 @@ And then we deployed it 🫠
 <img src="./media/debugging-in-practice.svg" height="300px"/>
 </p>
 </section>
-<section id="slide-org017ee9e">
-<h3 id="org017ee9e">OpenTelemetry to the rescue?</h3>
+<section id="slide-orgc3999f0">
+<h3 id="orgc3999f0">OpenTelemetry to the rescue?</h3>
 <aside class="notes">
 <ul>
 <li>oTel trace: whole distributed operation
@@ -332,14 +332,21 @@ span: a single event in the operation</li>
 <img src="./media/otel-general.svg"/>
 </p>
 
+</section>
+<section>
+
+<p>
+<img src="./media/otel-trace-waterfall.svg" height="450px"/>
+</p>
+
 <p class="fragment (appear)">
 but observability ≠ reliability
 </p>
 </section>
 </section>
 <section>
-<section id="slide-org320558d">
-<h2 id="org320558d">Why are there 10k messages in the Queue?</h2>
+<section id="slide-orgd6a20f8">
+<h2 id="orgd6a20f8">Why are there 10k messages in the Queue?</h2>
 <aside class="notes">
 <ul>
 <li>on one horrific day, the queue exploded</li>
@@ -352,8 +359,8 @@ but observability ≠ reliability
 <img src="./media/queued-jobs.svg"/>
 </p>
 </section>
-<section id="slide-org7c788a5">
-<h3 id="org7c788a5">Distributed systems are hard</h3>
+<section id="slide-org9cbda5e">
+<h3 id="org9cbda5e">Distributed systems are hard</h3>
 <aside class="notes">
 <ul>
 <li>in a distributed system, every component can fail :-(</li>
@@ -380,8 +387,8 @@ but observability ≠ reliability
 <img src="./media/failure-path-3.svg"/>
 </p>
 </section>
-<section id="slide-orgee5cea8">
-<h3 id="orgee5cea8">Pods Are Disposable</h3>
+<section id="slide-org454e7b6">
+<h3 id="org454e7b6">Pods Are Disposable</h3>
 <aside class="notes">
 <ul>
 <li>k8s can kill anything at any moment in time and the app <b>must</b> survive that</li>
@@ -398,8 +405,8 @@ but observability ≠ reliability
 k8s can stop your pod at any moment
 </p>
 </section>
-<section id="slide-orgb87369e">
-<h3 id="orgb87369e">But the tests are green!</h3>
+<section id="slide-org0e20415">
+<h3 id="org0e20415">But the tests are green!</h3>
 <aside class="notes">
 <ul>
 <li>most testing done in docker compose
@@ -419,8 +426,8 @@ Test for the unhappy path too!
 </section>
 </section>
 <section>
-<section id="slide-org5752cb8">
-<h2 id="org5752cb8">How do we stop losing &amp; duplicating jobs?</h2>
+<section id="slide-org8ffe5f8">
+<h2 id="org8ffe5f8">How do we stop losing &amp; duplicating jobs?</h2>
 <aside class="notes">
 <p>
 problem: crash of any component in the "outbox" causes two sources of truth to diverge
@@ -433,12 +440,19 @@ even worse: cancellation becomes a nightmare
 <img src="./media/current-outbox.svg"/>
 </p>
 </section>
-<section id="slide-org7ad2504">
-<h3 id="org7ad2504">Define Errors Out Of Existence</h3>
+<section id="slide-org91a96f0">
+<h3 id="org91a96f0">Define Errors Out Of Existence</h3>
 <aside class="notes">
 <ul>
 <li>quote from Chapter 10, A Philosophy of Software Design by John Ousterhout</li>
 <li>if you can avoid an error from happening, do that</li>
+<li>simple example: unset needn't throw when variable not set
+more complex:
+<ul>
+<li>contracts in Ada/Rust &rArr; prevent "bad stuff" at compile time</li>
+<li>idempotency: resubmit task not error but just get old result back</li>
+
+</ul></li>
 
 </ul>
 
@@ -448,12 +462,15 @@ even worse: cancellation becomes a nightmare
 If you can avoid a failure situation, do that!
 </p>
 
-<p class="fragment (appear)">
-<img src="./media/current-outbox.svg"/>
-</p>
+<div class="org-src-container">
+
+<pre class="fragment (appear)"><code class="bash" ># error or not?
+unset foo
+</code></pre>
+</div>
 </section>
-<section id="slide-orgb9a54e5">
-<h3 id="orgb9a54e5">Merging the backends</h3>
+<section id="slide-org194b792">
+<h3 id="org194b792">Merging the backends</h3>
 <aside class="notes">
 <ul>
 <li>hindsight is always 20/20: why two backends when one removes HTTP?</li>
@@ -463,17 +480,21 @@ If you can avoid a failure situation, do that!
 </aside>
 
 <p class="fragment (appear)">
-<img src="./media/architecture.svg"/>
+Remember the two backends?
+</p>
+
+<p class="fragment (appear)">
+<img src="./media/architecture.svg" height="450px"/>
 </p>
 
 </section>
 <section>
 <p>
-<img src="./media/merged-architecture.svg"/>
+<img src="./media/merged-architecture.svg" height="450px"/>
 </p>
 </section>
-<section id="slide-orgd294c38">
-<h3 id="orgd294c38">Transactional outbox</h3>
+<section id="slide-org6a7cced">
+<h3 id="org6a7cced">Transactional outbox</h3>
 <aside class="notes">
 <ul>
 <li>in a single transaction, commit the new task state <b>and</b> an outbox entry</li>
@@ -488,11 +509,21 @@ If you can avoid a failure situation, do that!
 </aside>
 
 <p class="fragment (appear)">
+Remember the two sources of truth?
+</p>
+
+<p class="fragment (appear)">
+<img src="./media/current-outbox.svg"/>
+</p>
+
+</section>
+<section>
+<p>
 <img src="./media/transactional-outbox.svg"/>
 </p>
 </section>
-<section id="slide-org461b637">
-<h3 id="org461b637">And the fan out?</h3>
+<section id="slide-org034b7a8">
+<h3 id="org034b7a8">And the fan out?</h3>
 <aside class="notes">
 <ul>
 <li>big issue: task creation happens during work</li>
@@ -513,8 +544,8 @@ If you can avoid a failure situation, do that!
 </section>
 </section>
 <section>
-<section id="slide-orgf9b57dd">
-<h2 id="orgf9b57dd">Lessons learned</h2>
+<section id="slide-org3e2a685">
+<h2 id="org3e2a685">Lessons learned</h2>
 <aside class="notes">
 <ul>
 <li>distributed systems are unforgiving and will punish your mistakes in the worst way (especially if their infra is flaky)</li>
@@ -553,15 +584,15 @@ and quote from <a href="https://martinfowler.com/bliki/MonolithFirst.html">Marti
 
 <blockquote class="fragment (appear)">
 <p>
-You shouldn't start a new project with microservices, even if you're sure your
-application will be big enough to make it worthwhile
+Almost all the successful microservice stories have started with a monolith that
+got too big and was broken up
 </p>
 </blockquote>
 </section>
 </section>
 <section>
-<section id="slide-org2d0abff">
-<h2 id="org2d0abff">Did this really happen?</h2>
+<section id="slide-org088d4da">
+<h2 id="org088d4da">Did this really happen?</h2>
 <p class="fragment (appear)">
 <img src="./media/jonathan-frakes-fake.png" height="300px"/>
 </p>
@@ -576,8 +607,8 @@ But the failures are real
 </section>
 </section>
 <section>
-<section id="slide-org92f89c0">
-<h2 id="org92f89c0">Questions?</h2>
+<section id="slide-orgd790928">
+<h2 id="orgd790928">Questions?</h2>
 <p>
 <img src="./media/qr.svg" height="300px"/>
 </p>
