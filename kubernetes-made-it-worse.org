@@ -227,6 +227,10 @@ $ kubectl logs -n cve worker-1234
 #+ATTR_REVEAL: :frag (appear)
 @@html:<img src="./media/otel-general.svg"/>@@
 
+#+REVEAL: split
+
+@@html:<img src="./media/otel-trace-waterfall.svg" height="450px"/>@@
+
 #+ATTR_REVEAL: :frag (appear)
 but observability ≠ reliability
 
@@ -301,13 +305,20 @@ even worse: cancellation becomes a nightmare
 #+begin_notes
 - quote from Chapter 10, A Philosophy of Software Design by John Ousterhout
 - if you can avoid an error from happening, do that
+- simple example: unset needn't throw when variable not set
+  more complex:
+  * contracts in Ada/Rust \Rightarrow prevent "bad stuff" at compile time
+  * idempotency: resubmit task not error but just get old result back
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
 If you can avoid a failure situation, do that!
 
 #+ATTR_REVEAL: :frag (appear)
-@@html:<img src="./media/current-outbox.svg"/>@@
+#+begin_src bash
+# error or not?
+unset foo
+#+end_src
 
 ** Merging the backends
 
@@ -316,10 +327,13 @@ If you can avoid a failure situation, do that!
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
-@@html:<img src="./media/architecture.svg"/>@@
+Remember the two backends?
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/architecture.svg" height="450px"/>@@
 
 #+REVEAL: split
-@@html:<img src="./media/merged-architecture.svg"/>@@
+@@html:<img src="./media/merged-architecture.svg" height="450px"/>@@
 
 
 ** Transactional outbox
@@ -333,6 +347,12 @@ If you can avoid a failure situation, do that!
 #+end_notes
 
 #+ATTR_REVEAL: :frag (appear)
+Remember the two sources of truth?
+
+#+ATTR_REVEAL: :frag (appear)
+@@html:<img src="./media/current-outbox.svg"/>@@
+
+#+REVEAL: split
 @@html:<img src="./media/transactional-outbox.svg"/>@@
 
 
@@ -399,8 +419,8 @@ and quote from [[https://martinfowler.com/bliki/MonolithFirst.html][Martin Fowle
 
 #+ATTR_REVEAL: :frag (appear)
 #+begin_quote
-You shouldn't start a new project with microservices, even if you're sure your
-application will be big enough to make it worthwhile
+Almost all the successful microservice stories have started with a monolith that
+got too big and was broken up
 #+end_quote
 
 

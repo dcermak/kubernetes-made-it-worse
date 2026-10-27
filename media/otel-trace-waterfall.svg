@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1105.3625"
+   height="753.58423"
+   viewBox="0 0 1105.3625 753.58423"
+   role="img"
+   aria-labelledby="chart-title chart-desc"
+   version="1.1"
+   id="svg19"
+   sodipodi:docname="otel-trace-waterfall.svg"
+   inkscape:version="1.4.4 (dcaf3e7d9e, 2026-05-05)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs19">
+    <marker
+       style="overflow:visible"
+       id="DartArrow"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       inkscape:stockid="Dart arrow"
+       markerWidth="1"
+       markerHeight="1"
+       viewBox="0 0 1 1"
+       inkscape:isstock="true"
+       inkscape:collect="always"
+       preserveAspectRatio="xMidYMid">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         transform="scale(-0.5)"
+         id="path32" />
+    </marker>
+  </defs>
+  <sodipodi:namedview
+     id="namedview19"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="0.68485916"
+     inkscape:cx="314.66324"
+     inkscape:cy="645.38817"
+     inkscape:window-width="2549"
+     inkscape:window-height="1362"
+     inkscape:window-x="26"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg19" />
+  <title
+     id="chart-title">One simple operation</title>
+  <desc
+     id="chart-desc">A distributed tracing waterfall containing eight operations over 48.7 seconds. Paul Tol's vibrant palette is used for HTTP, Celery, waiting, and database operations.</desc>
+  <!-- Paul Tol vibrant color scheme: blue #0077BB, magenta #EE3377,
+       orange #EE7733, teal #009988, cyan #33BBEE,
+       red #CC3311, grey #BBBBBB. -->
+  <style
+     id="style1">
+    .title { font: 700 24px Arial, Helvetica, sans-serif; fill: #111111; }
+    .duration { font: 400 18px Arial, Helvetica, sans-serif; fill: #606060; }
+    .label { font: 400 30px Arial, Helvetica, sans-serif; fill: #121212; }
+    .legend { font: 400 14px Arial, Helvetica, sans-serif; fill: #636363; }
+    .caption { font: 400 21px Arial, Helvetica, sans-serif; fill: #646464; }
+    .grid { stroke: #e4e4e4; stroke-width: 3.5; stroke-dasharray: 6 10; }
+  </style>
+  <!-- Background, border, headings: same geometry as supplied chart -->
+  <!-- Timeline grid -->
+  <path
+     d="M 367,55.784195 V 687.78419"
+     id="path3"
+     style="stroke:#e4e4e4;stroke-width:3.5;stroke-dasharray:6, 10" />
+  <path
+     d="M 547,55.784195 V 687.78419"
+     id="path4"
+     style="stroke:#e4e4e4;stroke-width:3.5;stroke-dasharray:6, 10" />
+  <path
+     d="M 727,55.784195 V 687.78419"
+     id="path5"
+     style="stroke:#e4e4e4;stroke-width:3.5;stroke-dasharray:6, 10" />
+  <path
+     d="M 908,55.784195 V 687.78419"
+     id="path6"
+     style="stroke:#e4e4e4;stroke-width:3.5;stroke-dasharray:6, 10" />
+  <path
+     d="M 1088,55.784195 V 687.78419"
+     id="path7"
+     style="stroke:#e4e4e4;stroke-width:3.5;stroke-dasharray:6, 10" />
+  <!-- Span names -->
+  <text
+     x="6"
+     y="108.78419"
+     id="text7"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:29.3333px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#121212"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan21">POST /check</tspan></text>
+  <text
+     x="6"
+     y="264.69421"
+     id="text8"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:29.3333px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#121212"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan22">publish</tspan></text>
+  <text
+     x="6"
+     y="343.69421"
+     id="text9"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:29.3333px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#121212"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan24">queue wait</tspan></text>
+  <text
+     x="6"
+     y="505.78418"
+     id="text12"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:30px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#121212"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan30">PATCH /check</tspan></text>
+  <text
+     x="6"
+     y="671.78418"
+     id="text14"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:30px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#121212"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:30px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan32">queue wait</tspan></text>
+  <!-- Span bars, geometry preserved from screenshot -->
+  <rect
+     id="http-request"
+     x="367"
+     y="69.784195"
+     width="153.24678"
+     height="50"
+     rx="9"
+     fill="#0077bb" />
+  <rect
+     id="celery-publish-check"
+     x="390"
+     y="225.69424"
+     width="40"
+     height="50"
+     rx="8"
+     fill="#ee3377" />
+  <rect
+     id="queue-wait-check"
+     x="429"
+     y="304.69421"
+     width="220"
+     height="50"
+     rx="8"
+     fill="#ee7733" />
+  <rect
+     id="celery-check"
+     x="649"
+     y="382.69421"
+     width="118"
+     height="50"
+     rx="9"
+     fill="#ee3377" />
+  <rect
+     id="database-select"
+     x="379.11053"
+     y="146.85121"
+     width="79"
+     height="49"
+     rx="8"
+     fill="#009988" />
+  <rect
+     id="celery-publish-followup"
+     x="754"
+     y="466.78418"
+     width="49"
+     height="49"
+     rx="8"
+     fill="#ee3377"
+     style="fill:#0077bb;fill-opacity:1" />
+  <rect
+     id="queue-wait-followup"
+     x="649"
+     y="553.78418"
+     width="367"
+     height="49"
+     rx="8"
+     fill="#ee7733"
+     style="fill:#ee3377;fill-opacity:1" />
+  <rect
+     id="celery-followup"
+     x="1016"
+     y="632.78418"
+     width="69"
+     height="49"
+     rx="8"
+     fill="#ee3377"
+     style="fill:#ee7733;fill-opacity:1" />
+  <!-- Legend -->
+  <rect
+     x="0"
+     y="737.78418"
+     width="14"
+     height="14"
+     rx="3"
+     fill="#0077bb"
+     id="rect14" />
+  <text
+     class="legend"
+     x="19"
+     y="750.78418"
+     id="text15"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:14px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#636363"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan28">HTTP</tspan></text>
+  <rect
+     x="74"
+     y="737.78418"
+     width="14"
+     height="14"
+     rx="3"
+     fill="#ee3377"
+     id="rect15" />
+  <text
+     class="legend"
+     x="93"
+     y="750.78418"
+     id="text16"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:14px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#636363"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan27">Celery</tspan></text>
+  <rect
+     x="154"
+     y="737.78418"
+     width="14"
+     height="14"
+     rx="3"
+     fill="#ee7733"
+     id="rect16" />
+  <text
+     class="legend"
+     x="173"
+     y="750.78418"
+     id="text17"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:14px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#636363"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan29">RabbitMQ</tspan></text>
+  <rect
+     x="252"
+     y="737.78418"
+     width="14"
+     height="14"
+     rx="3"
+     fill="#009988"
+     id="rect17" />
+  <text
+     class="legend"
+     x="271"
+     y="750.78418"
+     id="text18"
+     style="font-style:normal;font-variant:normal;font-weight:400;font-stretch:normal;font-size:14px;line-height:normal;font-family:Arial, Helvetica, sans-serif;fill:#636363"><tspan
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:14px;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal"
+       id="tspan26">PostgreSQL</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:32px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;stroke:#ee7733;stroke-width:2.49827"
+     x="8.124939"
+     y="22.719971"
+     id="text20"><tspan
+       sodipodi:role="line"
+       id="tspan20"
+       x="8.124939"
+       y="22.719971"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:32px;font-family:SUSE;-inkscape-font-specification:'SUSE, Semi-Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">Trace ID 403520a1</tspan></text>
+  <path
+     style="fill:none;fill-opacity:1;stroke:#000000;stroke-width:2.498;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#DartArrow)"
+     d="m 368.75,724.78419 h 721"
+     id="path20"
+     sodipodi:nodetypes="cc" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2.498;stroke-dasharray:none;stroke-opacity:1"
+     x="5.8437672"
+     y="423.01758"
+     id="text33"><tspan
+       sodipodi:role="line"
+       id="tspan33"
+       x="5.8437672"
+       y="423.01758"
+       style="font-size:29.3333px;fill:#000000;fill-opacity:1;stroke:none">worker: pick</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:none;fill-opacity:1;stroke:#000000;stroke-width:2.498;stroke-dasharray:none;stroke-opacity:1"
+     x="6.5013885"
+     y="595.64734"
+     id="text33-7"><tspan
+       sodipodi:role="line"
+       id="tspan33-6"
+       x="6.5013885"
+       y="595.64734"
+       style="font-size:29.3333px;fill:#000000;fill-opacity:1;stroke:none">worker: process</tspan></text>
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;line-height:1.25;font-family:SUSE;-inkscape-font-specification:'SUSE, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:2.498;stroke-dasharray:none;stroke-opacity:1"
+     x="4.399807"
+     y="185.97655"
+     id="text34"><tspan
+       sodipodi:role="line"
+       id="tspan34"
+       x="4.399807"
+       y="185.97655"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:29.3333px;font-family:'SUSE Mono 20250730';-inkscape-font-specification:'SUSE Mono 20250730, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">INSERT TASK_ID</tspan></text>
+  <metadata
+     id="metadata1">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>One simple operation</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
