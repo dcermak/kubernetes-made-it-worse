@@ -52,13 +52,6 @@ Dan Čermák
 
 * Stay a while and listen
 
-@@html:<img src="./media/deckard-cain.jpg"/>@@
-
-#+ATTR_REVEAL: :frag (appear)
-To the story of the =cve-patch-checker=
-
-** The =cve-patch-checker=
-
 #+begin_notes
 - local application for checking security related submissions
 steps:
@@ -68,6 +61,10 @@ steps:
 - code stream check: check if submission needs to be done against other code streams too, apply it and restart checks there too
 #+end_notes
 
+#+ATTR_REVEAL: :frag (appear)
+The =cve-patch-checker=
+
+#+ATTR_REVEAL: :frag (appear)
 @@html:<img src="./media/cve-patch-checker.svg"/>@@
 
 ** But it had problems
